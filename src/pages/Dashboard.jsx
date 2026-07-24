@@ -34,7 +34,7 @@ export default function Dashboard() {
   <div className="h-screen overflow-hidden p-3">
 
     <PageHeader
-      title="Smart Dairy AI Manufacturing Control Center"
+      title="FlowGenie Manufacturing Control Center"
       subtitle="Live overview of Mumbai Dairy Unit"
     />
 
