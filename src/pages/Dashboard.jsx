@@ -1,117 +1,407 @@
-import { useMemo } from 'react'
 import {
-  LineChart, Line, BarChart, Bar, AreaChart, Area,
-  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
-} from 'recharts'
-import { Droplets, Factory, Gauge, Cpu, AlertTriangle, Clock, Smile, Award } from 'lucide-react'
-import PageHeader from '../components/PageHeader'
-import KpiCard from '../components/KpiCard'
-import ChartCard from '../components/ChartCard'
-import { KpiSkeleton, ChartSkeleton } from '../components/LoadingSkeleton'
-import { useFetchData } from '../hooks/useFetchData'
-import { getProduction } from '../services/api'
-import { formatNumber } from '../utils/formatters'
+  Factory,
+  Gauge,
+  Cpu,
+  Award,
+  AlertTriangle,
+  Droplets,
+  Clock,
+  Bot
+} from "lucide-react";
+
+import { useState } from "react";
+import Papa from "papaparse";
+import KpiCard from "../components/KpiCard";
+import { formatNumber } from "../utils/formatters";
+
 
 export default function Dashboard() {
-  const { data, loading } = useFetchData(getProduction, [])
 
-  const kpiConfig = useMemo(() => {
-    if (!data) return []
-    const k = data.kpis
-    return [
-      { icon: Droplets, label: 'Total Milk Processed', value: formatNumber(k.totalMilkProcessed.value), unit: k.totalMilkProcessed.unit, change: k.totalMilkProcessed.change, trend: k.totalMilkProcessed.trend, accent: 'primary' },
-      { icon: Factory, label: "Today's Production", value: formatNumber(k.todaysProduction.value), unit: k.todaysProduction.unit, change: k.todaysProduction.change, trend: k.todaysProduction.trend, accent: 'primary' },
-      { icon: Gauge, label: 'Production Efficiency', value: k.productionEfficiency.value, unit: k.productionEfficiency.unit, change: k.productionEfficiency.change, trend: k.productionEfficiency.trend, accent: 'success' },
-      { icon: Cpu, label: 'Machine Utilization', value: k.machineUtilization.value, unit: k.machineUtilization.unit, change: k.machineUtilization.change, trend: k.machineUtilization.trend, accent: 'primary' },
-      { icon: AlertTriangle, label: "Today's Bottlenecks", value: k.todaysBottlenecks.value, unit: '', change: k.todaysBottlenecks.change, trend: k.todaysBottlenecks.trend, accent: 'warning' },
-      { icon: Clock, label: 'Delayed Batches', value: k.delayedBatches.value, unit: '', change: k.delayedBatches.change, trend: k.delayedBatches.trend, accent: 'danger' },
-      { icon: Smile, label: 'Customer Satisfaction', value: k.customerSatisfaction.value, unit: k.customerSatisfaction.unit, change: k.customerSatisfaction.change, trend: k.customerSatisfaction.trend, accent: 'success' },
-      { icon: Award, label: 'Overall Equipment Effectiveness', value: k.oee.value, unit: k.oee.unit, change: k.oee.change, trend: k.oee.trend, accent: 'primary' },
-    ]
-  }, [data])
 
-  return (
-    <div>
-      <PageHeader
-        title="Dashboard"
-        subtitle="Live overview of the Nashik Road milk processing line — updated every few minutes."
-      />
+const [dashboard,setDashboard] = useState(null);
 
-      {loading ? (
-        <KpiSkeleton count={8} />
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-          {kpiConfig.map((kpi, i) => (
-            <KpiCard key={kpi.label} index={i} {...kpi} />
-          ))}
-        </div>
-      )}
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 mt-6">
-        {loading ? (
-          <>
-            <ChartSkeleton /> <ChartSkeleton /> <ChartSkeleton /> <ChartSkeleton />
-          </>
-        ) : (
-          <>
-            <ChartCard title="Production Trend" subtitle="Output vs target across today's shifts (liters)" index={0}>
-              <ResponsiveContainer width="100%" height={280}>
-                <LineChart data={data.productionTrend}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
-                  <XAxis dataKey="time" tick={{ fontSize: 12, fill: '#94A3B8' }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fontSize: 12, fill: '#94A3B8' }} axisLine={false} tickLine={false} />
-                  <Tooltip contentStyle={{ borderRadius: 12, border: '1px solid #E2E8F0' }} />
-                  <Legend />
-                  <Line type="monotone" dataKey="output" name="Actual Output" stroke="#2563EB" strokeWidth={2.5} dot={false} />
-                  <Line type="monotone" dataKey="target" name="Target" stroke="#94A3B8" strokeWidth={2} strokeDasharray="5 5" dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
-            </ChartCard>
 
-            <ChartCard title="Machine Utilization" subtitle="Percentage utilization by machine, today" index={1}>
-              <ResponsiveContainer width="100%" height={280}>
-                <BarChart data={data.machineUtilizationChart}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
-                  <XAxis dataKey="machine" tick={{ fontSize: 11, fill: '#94A3B8' }} axisLine={false} tickLine={false} interval={0} angle={-20} textAnchor="end" height={60} />
-                  <YAxis tick={{ fontSize: 12, fill: '#94A3B8' }} axisLine={false} tickLine={false} />
-                  <Tooltip contentStyle={{ borderRadius: 12, border: '1px solid #E2E8F0' }} />
-                  <Bar dataKey="utilization" name="Utilization %" fill="#2563EB" radius={[8, 8, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartCard>
+const icons={
 
-            <ChartCard title="Workflow Completion" subtitle="Percent complete by manufacturing stage, current batch" index={2}>
-              <ResponsiveContainer width="100%" height={280}>
-                <AreaChart data={data.workflowCompletion}>
-                  <defs>
-                    <linearGradient id="completionFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#16A34A" stopOpacity={0.35} />
-                      <stop offset="100%" stopColor="#16A34A" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
-                  <XAxis dataKey="stage" tick={{ fontSize: 11, fill: '#94A3B8' }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fontSize: 12, fill: '#94A3B8' }} axisLine={false} tickLine={false} />
-                  <Tooltip contentStyle={{ borderRadius: 12, border: '1px solid #E2E8F0' }} />
-                  <Area type="monotone" dataKey="completion" name="Completion %" stroke="#16A34A" fill="url(#completionFill)" strokeWidth={2.5} />
-                </AreaChart>
-              </ResponsiveContainer>
-            </ChartCard>
+batchesToday:Factory,
+efficiency:Gauge,
+plantHealth:Cpu,
+qualityScore:Award,
+aiRisk:AlertTriangle,
+productionOutput:Droplets,
+waste:AlertTriangle,
+downtime:Clock
 
-            <ChartCard title="Delay Trend" subtitle="Average delay (minutes) over the past 7 days" index={3}>
-              <ResponsiveContainer width="100%" height={280}>
-                <LineChart data={data.delayTrend}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
-                  <XAxis dataKey="day" tick={{ fontSize: 12, fill: '#94A3B8' }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fontSize: 12, fill: '#94A3B8' }} axisLine={false} tickLine={false} />
-                  <Tooltip contentStyle={{ borderRadius: 12, border: '1px solid #E2E8F0' }} />
-                  <Line type="monotone" dataKey="delayMinutes" name="Delay (min)" stroke="#DC2626" strokeWidth={2.5} dot={{ r: 4 }} />
-                </LineChart>
-              </ResponsiveContainer>
-            </ChartCard>
-          </>
-        )}
-      </div>
-    </div>
-  )
+};
+
+
+
+
+// CSV UPLOAD FUNCTION
+
+const handleCSV=(e)=>{
+
+
+const file=e.target.files[0];
+
+
+Papa.parse(file,{
+
+header:true,
+
+skipEmptyLines:true,
+
+
+complete:(result)=>{
+
+
+const rows=result.data;
+
+
+// Example aggregation
+
+const output={
+
+
+batchesToday:rows.length,
+
+
+efficiency:
+average(rows,"Efficiency"),
+
+
+plantHealth:
+average(rows,"PlantHealth"),
+
+
+qualityScore:
+average(rows,"QualityScore"),
+
+
+aiRisk:
+average(rows,"Risk"),
+
+
+productionOutput:
+sum(rows,"MilkProduced"),
+
+
+waste:
+sum(rows,"Waste"),
+
+
+downtime:
+sum(rows,"Downtime"),
+
+
+costImpact:
+sum(rows,"Cost"),
+
+
+aiSavings:
+350000
+
+
+};
+
+
+setDashboard(output);
+
+
+}
+
+
+});
+
+
+};
+
+
+
+
+
+function average(data,key){
+
+let values=data.map(x=>Number(x[key])||0);
+
+return Math.round(
+values.reduce((a,b)=>a+b,0)/values.length
+);
+
+}
+
+
+
+function sum(data,key){
+
+return data.reduce(
+(total,row)=>
+total+(Number(row[key])||0),
+0
+);
+
+}
+
+
+
+
+const kpis = dashboard && {
+
+
+batchesToday:{
+value:dashboard.batchesToday,
+unit:""
+},
+
+
+efficiency:{
+value:dashboard.efficiency,
+unit:"%"
+},
+
+
+plantHealth:{
+value:dashboard.plantHealth,
+unit:"%"
+},
+
+
+qualityScore:{
+value:dashboard.qualityScore,
+unit:"%"
+},
+
+
+aiRisk:{
+value:dashboard.aiRisk,
+unit:"%"
+},
+
+
+productionOutput:{
+value:dashboard.productionOutput,
+unit:"L"
+},
+
+
+waste:{
+value:dashboard.waste,
+unit:"L"
+},
+
+
+downtime:{
+value:dashboard.downtime,
+unit:"min"
+}
+
+
+};
+
+
+
+
+
+return (
+
+<div className="p-6 bg-gray-100 min-h-screen space-y-6">
+
+
+{/* CSV UPLOAD */}
+
+<div className="bg-white p-5 rounded-xl shadow">
+
+
+<h2 className="text-xl font-bold">
+
+📂 Upload Dairy Production CSV
+
+</h2>
+
+
+<input
+
+type="file"
+
+accept=".csv"
+
+onChange={handleCSV}
+
+className="mt-3 border p-2"
+
+/>
+
+
+</div>
+
+
+
+
+
+
+{
+dashboard &&
+
+<>
+
+
+{/* HEADER */}
+
+<div className="bg-white p-5 rounded-xl shadow">
+
+
+<h1 className="text-2xl font-bold">
+
+🥛 Smart Dairy AI Manufacturing Control Center
+
+</h1>
+
+
+<p>
+Plant: Mumbai Dairy Unit |
+AI Status 🟢 Active
+</p>
+
+
+</div>
+
+
+
+
+
+
+{/* KPI CARDS */}
+
+
+<div className="grid md:grid-cols-4 grid-cols-2 gap-4">
+
+
+{
+
+Object.entries(kpis).map(([key,value],index)=>(
+
+
+<KpiCard
+
+key={key}
+
+index={index}
+
+icon={icons[key]}
+
+label={
+key.replace(/([A-Z])/g," $1")
+}
+
+value={
+formatNumber(value.value)
+}
+
+unit={value.unit}
+
+/>
+
+
+))
+
+
+}
+
+
+</div>
+
+
+
+
+
+
+
+{/* EXECUTIVE DASHBOARD */}
+
+
+<div className="bg-white p-5 rounded-xl shadow">
+
+
+<h2 className="text-xl font-bold">
+
+📊 Executive Dashboard
+
+</h2>
+
+
+<div className="grid md:grid-cols-5 gap-5 mt-4">
+
+
+<div>
+Production
+<h3>
+{dashboard.productionOutput} L
+</h3>
+</div>
+
+
+<div>
+Waste
+<h3>
+{dashboard.waste} L
+</h3>
+</div>
+
+
+<div>
+Downtime
+<h3>
+{dashboard.downtime} min
+</h3>
+</div>
+
+
+<div>
+Cost
+<h3>
+₹{dashboard.costImpact}
+</h3>
+</div>
+
+
+<div>
+AI Savings
+<h3>
+₹{dashboard.aiSavings}
+</h3>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+{/* AI BOT */}
+
+
+<div className="fixed bottom-5 right-5 bg-blue-600 text-white p-4 rounded-full">
+
+<Bot/>
+
+</div>
+
+
+</>
+
+
+}
+
+
+</div>
+
+
+)
+
 }
