@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: milkflow-ai
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://api.milkflow.example.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
