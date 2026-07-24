@@ -11,7 +11,7 @@ import {
 
 import { useState } from "react";
 import Papa from "papaparse";
-import KpiCard from "../components/KpiCard";
+import KpiCard from "../components/KpiCard.jsx";
 import { formatNumber } from "../utils/formatters";
 
 
