@@ -1,0 +1,42 @@
+{
+  "nextBottleneck": {
+    "stage": "Pasteurization",
+    "machine": "HTST Pasteurizer P-1",
+    "etaMinutes": 35,
+    "confidence": 88
+  },
+  "machineFailureProbability": [
+    { "machine": "Pasteurizer P-1", "probability": 74 },
+    { "machine": "Chiller C-3", "probability": 41 },
+    { "machine": "Lab QT-2", "probability": 22 },
+    { "machine": "Homogenizer H-2", "probability": 12 },
+    { "machine": "Tetra Pak TP-4", "probability": 9 }
+  ],
+  "predictedDelay": { "minutes": 27, "unit": "min", "affectedStage": "Pasteurization → Homogenization" },
+  "confidenceScore": 88,
+  "predictedQueueLength": { "batches": 6, "avgWaitMinutes": 22 },
+  "timeline": [
+    { "time": "Now", "event": "Pasteurizer P-1 flow rate below threshold (fouling detected)", "severity": "warning" },
+    { "time": "+15 min", "event": "Queue at Homogenizer H-2 expected to build to 4 batches", "severity": "warning" },
+    { "time": "+35 min", "event": "Predicted bottleneck peak at Pasteurization stage", "severity": "danger" },
+    { "time": "+70 min", "event": "Recommended CIP (clean-in-place) cycle window for P-1", "severity": "info" },
+    { "time": "+120 min", "event": "Flow expected to normalize post CIP cycle", "severity": "success" }
+  ],
+  "trend": [
+    { "hour": "-6h", "riskScore": 22 },
+    { "hour": "-5h", "riskScore": 28 },
+    { "hour": "-4h", "riskScore": 35 },
+    { "hour": "-3h", "riskScore": 47 },
+    { "hour": "-2h", "riskScore": 58 },
+    { "hour": "-1h", "riskScore": 69 },
+    { "hour": "Now", "riskScore": 74 },
+    { "hour": "+1h", "riskScore": 79 },
+    { "hour": "+2h", "riskScore": 63 },
+    { "hour": "+3h", "riskScore": 40 }
+  ],
+  "recommendations": [
+    "Schedule an early CIP (clean-in-place) cycle for Pasteurizer P-1 within the next 60 minutes.",
+    "Temporarily reroute cooled batches through Chiller C-2 as a buffer to reduce queue buildup.",
+    "Notify the Homogenization operator to expect a delayed batch release and adjust shift handoff."
+  ]
+}

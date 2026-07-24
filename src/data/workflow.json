@@ -1,0 +1,102 @@
+{
+  "stages": [
+    {
+      "id": "collection",
+      "order": 1,
+      "name": "Milk Collection",
+      "status": "completed",
+      "expectedTime": 45,
+      "actualTime": 48,
+      "delay": 3,
+      "queueTime": 6,
+      "machine": "Collection Bay A1",
+      "operator": "R. Fernandes",
+      "throughput": "12,400 L",
+      "notes": "Tanker arrival slightly delayed due to route congestion from the Nashik dairy belt."
+    },
+    {
+      "id": "quality-testing",
+      "order": 2,
+      "name": "Quality Testing",
+      "status": "completed",
+      "expectedTime": 20,
+      "actualTime": 26,
+      "delay": 6,
+      "queueTime": 8,
+      "machine": "Lab Analyzer QT-2",
+      "operator": "S. Kulkarni",
+      "throughput": "12,400 L",
+      "notes": "Fat and SNF test batch re-run once due to calibration drift on QT-2."
+    },
+    {
+      "id": "cooling",
+      "order": 3,
+      "name": "Cooling",
+      "status": "in-progress",
+      "expectedTime": 30,
+      "actualTime": 41,
+      "delay": 11,
+      "queueTime": 14,
+      "machine": "Chiller Unit C-3",
+      "operator": "P. Iyer",
+      "throughput": "9,800 L",
+      "notes": "Chiller C-3 running below rated capacity, compressor pressure fluctuating."
+    },
+    {
+      "id": "pasteurization",
+      "order": 4,
+      "name": "Pasteurization",
+      "status": "delayed",
+      "expectedTime": 40,
+      "actualTime": 63,
+      "delay": 23,
+      "queueTime": 19,
+      "machine": "HTST Pasteurizer P-1",
+      "operator": "A. Verma",
+      "throughput": "7,200 L",
+      "notes": "Primary bottleneck today: plate heat exchanger fouling is reducing flow rate."
+    },
+    {
+      "id": "homogenization",
+      "order": 5,
+      "name": "Homogenization",
+      "status": "pending",
+      "expectedTime": 25,
+      "actualTime": 0,
+      "delay": 0,
+      "queueTime": 21,
+      "machine": "Homogenizer H-2",
+      "operator": "D. Rao",
+      "throughput": "0 L",
+      "notes": "Waiting on the pasteurized batch release from P-1."
+    },
+    {
+      "id": "packaging",
+      "order": 6,
+      "name": "Packaging",
+      "status": "pending",
+      "expectedTime": 35,
+      "actualTime": 0,
+      "delay": 0,
+      "queueTime": 0,
+      "machine": "Tetra Pak Line TP-4",
+      "operator": "M. Shaikh",
+      "throughput": "0 L",
+      "notes": "Line primed and ready, awaiting upstream flow."
+    },
+    {
+      "id": "dispatch",
+      "order": 7,
+      "name": "Dispatch",
+      "status": "pending",
+      "expectedTime": 15,
+      "actualTime": 0,
+      "delay": 0,
+      "queueTime": 0,
+      "machine": "Dispatch Dock D-2",
+      "operator": "K. Naik",
+      "throughput": "0 L",
+      "notes": "Three delivery trucks staged and waiting at the dock."
+    }
+  ]
+}

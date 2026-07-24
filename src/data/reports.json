@@ -1,0 +1,45 @@
+{
+  "reportCards": [
+    { "id": "daily", "title": "Daily Report", "description": "Production, bottlenecks and machine status for the current day.", "lastGenerated": "2026-07-24 06:00" },
+    { "id": "weekly", "title": "Weekly Report", "description": "Rolling 7-day trend across production, delays and OEE.", "lastGenerated": "2026-07-20 06:00" },
+    { "id": "monthly", "title": "Monthly Report", "description": "Full month summary with shift and operator performance.", "lastGenerated": "2026-07-01 06:00" },
+    { "id": "machine", "title": "Machine Report", "description": "Health, maintenance schedule and failure risk per machine.", "lastGenerated": "2026-07-23 18:00" },
+    { "id": "feedback", "title": "Feedback Report", "description": "Customer sentiment, categories and top complaints.", "lastGenerated": "2026-07-22 09:00" }
+  ],
+  "bottleneckTable": [
+    { "stage": "Milk Collection", "expectedTime": 45, "actualTime": 48, "delay": 3, "status": "Minor", "rootCause": "Tanker route congestion", "affectedMachine": "Collection Bay A1", "impact": "Low", "recommendation": "Monitor; no action needed today." },
+    { "stage": "Quality Testing", "expectedTime": 20, "actualTime": 26, "delay": 6, "status": "Minor", "rootCause": "Sensor calibration drift", "affectedMachine": "Lab Analyzer QT-2", "impact": "Low", "recommendation": "Recalibrate QT-2 sensors during next changeover." },
+    { "stage": "Cooling", "expectedTime": 30, "actualTime": 41, "delay": 11, "status": "Moderate", "rootCause": "Compressor pressure fluctuation", "affectedMachine": "Chiller Unit C-3", "impact": "Medium", "recommendation": "Inspect compressor and refrigerant levels this shift." },
+    { "stage": "Pasteurization", "expectedTime": 40, "actualTime": 63, "delay": 23, "status": "Critical", "rootCause": "Plate heat exchanger fouling", "affectedMachine": "HTST Pasteurizer P-1", "impact": "High", "recommendation": "Run CIP cycle within the hour; reroute buffer stock." },
+    { "stage": "Homogenization", "expectedTime": 25, "actualTime": 0, "delay": 0, "status": "Pending", "rootCause": "Waiting on upstream batch", "affectedMachine": "Homogenizer H-2", "impact": "Medium", "recommendation": "Hold operator on standby for release." },
+    { "stage": "Packaging", "expectedTime": 35, "actualTime": 0, "delay": 0, "status": "Pending", "rootCause": "Waiting on upstream batch", "affectedMachine": "Tetra Pak Line TP-4", "impact": "Low", "recommendation": "Line ready; no action needed." },
+    { "stage": "Dispatch", "expectedTime": 15, "actualTime": 0, "delay": 0, "status": "Pending", "rootCause": "Waiting on packaged batch", "affectedMachine": "Dispatch Dock D-2", "impact": "Low", "recommendation": "Keep trucks staged at dock." }
+  ],
+  "delayByStage": [
+    { "stage": "Collection", "delay": 3 },
+    { "stage": "Testing", "delay": 6 },
+    { "stage": "Cooling", "delay": 11 },
+    { "stage": "Pasteurization", "delay": 23 },
+    { "stage": "Homogenization", "delay": 0 },
+    { "stage": "Packaging", "delay": 0 },
+    { "stage": "Dispatch", "delay": 0 }
+  ],
+  "queueTimeByStage": [
+    { "stage": "Collection", "queue": 6 },
+    { "stage": "Testing", "queue": 8 },
+    { "stage": "Cooling", "queue": 14 },
+    { "stage": "Pasteurization", "queue": 19 },
+    { "stage": "Homogenization", "queue": 21 },
+    { "stage": "Packaging", "queue": 0 },
+    { "stage": "Dispatch", "queue": 0 }
+  ],
+  "machineLoad": [
+    { "machine": "Collection A1", "load": 88 },
+    { "machine": "Lab QT-2", "load": 74 },
+    { "machine": "Chiller C-3", "load": 69 },
+    { "machine": "Pasteurizer P-1", "load": 96 },
+    { "machine": "Homogenizer H-2", "load": 81 },
+    { "machine": "Tetra Pak TP-4", "load": 85 },
+    { "machine": "Dispatch D-2", "load": 62 }
+  ]
+}

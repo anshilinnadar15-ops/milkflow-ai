@@ -1,0 +1,38 @@
+{
+  "summary": {
+    "totalFeedback": 486,
+    "positivePct": 62,
+    "neutralPct": 21,
+    "negativePct": 17,
+    "avgRating": 4.1
+  },
+  "aiSummary": "Most complaints this week center on packaging seals and delivery-day shelf life. Taste and quality feedback stayed strongly positive, especially for the toned milk and paneer lines. Recommend inspecting the TP-4 sealing head and reviewing cold-chain handling on the eastern delivery route.",
+  "sentimentTrend": [
+    { "day": "Mon", "positive": 58, "neutral": 24, "negative": 18 },
+    { "day": "Tue", "positive": 61, "neutral": 22, "negative": 17 },
+    { "day": "Wed", "positive": 55, "neutral": 25, "negative": 20 },
+    { "day": "Thu", "positive": 64, "neutral": 19, "negative": 17 },
+    { "day": "Fri", "positive": 66, "neutral": 20, "negative": 14 },
+    { "day": "Sat", "positive": 60, "neutral": 22, "negative": 18 },
+    { "day": "Sun", "positive": 62, "neutral": 21, "negative": 17 }
+  ],
+  "categories": [
+    { "category": "Packaging", "count": 142 },
+    { "category": "Shelf Life", "count": 98 },
+    { "category": "Taste", "count": 87 },
+    { "category": "Temperature", "count": 64 },
+    { "category": "Quality", "count": 95 }
+  ],
+  "entries": [
+    { "id": "FB-1042", "text": "The paneer packet had a small tear on arrival, seal wasn't fully intact.", "sentiment": "Negative", "category": "Packaging", "rating": 2, "date": "2026-07-22" },
+    { "id": "FB-1041", "text": "Toned milk tastes fresh and consistent, been buying for 3 years now.", "sentiment": "Positive", "category": "Taste", "rating": 5, "date": "2026-07-22" },
+    { "id": "FB-1040", "text": "Curd turned slightly sour a day before the printed expiry date.", "sentiment": "Negative", "category": "Shelf Life", "rating": 2, "date": "2026-07-21" },
+    { "id": "FB-1039", "text": "Delivery crate wasn't cold enough this morning, milk was lukewarm.", "sentiment": "Negative", "category": "Temperature", "rating": 3, "date": "2026-07-21" },
+    { "id": "FB-1038", "text": "Ghee aroma and texture are excellent this batch, best in a while.", "sentiment": "Positive", "category": "Quality", "rating": 5, "date": "2026-07-20" },
+    { "id": "FB-1037", "text": "Full cream milk pouch leaked slightly at the corner seal.", "sentiment": "Negative", "category": "Packaging", "rating": 2, "date": "2026-07-20" },
+    { "id": "FB-1036", "text": "Consistent quality across the week, no complaints at all.", "sentiment": "Positive", "category": "Quality", "rating": 5, "date": "2026-07-19" },
+    { "id": "FB-1035", "text": "Packet date printing was smudged and hard to read.", "sentiment": "Neutral", "category": "Packaging", "rating": 3, "date": "2026-07-19" },
+    { "id": "FB-1034", "text": "Milk was noticeably watery compared to last month's batch.", "sentiment": "Negative", "category": "Quality", "rating": 2, "date": "2026-07-18" },
+    { "id": "FB-1033", "text": "Great taste, kids love the toned milk with breakfast cereal.", "sentiment": "Positive", "category": "Taste", "rating": 5, "date": "2026-07-18" }
+  ]
+}

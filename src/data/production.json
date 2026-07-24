@@ -1,0 +1,98 @@
+{
+  "kpis": {
+    "totalMilkProcessed": { "value": 48250, "unit": "L", "change": 4.2, "trend": "up" },
+    "todaysProduction": { "value": 41200, "unit": "L", "change": -2.8, "trend": "down" },
+    "productionEfficiency": { "value": 87.4, "unit": "%", "change": 1.6, "trend": "up" },
+    "machineUtilization": { "value": 82.1, "unit": "%", "change": -1.1, "trend": "down" },
+    "todaysBottlenecks": { "value": 3, "unit": "", "change": 1, "trend": "up" },
+    "delayedBatches": { "value": 5, "unit": "", "change": 2, "trend": "up" },
+    "customerSatisfaction": { "value": 91.5, "unit": "%", "change": 0.9, "trend": "up" },
+    "oee": { "value": 78.3, "unit": "%", "change": -0.6, "trend": "down" }
+  },
+  "productionTrend": [
+    { "time": "06:00", "output": 3200, "target": 3400 },
+    { "time": "08:00", "output": 4100, "target": 4200 },
+    { "time": "10:00", "output": 5300, "target": 5000 },
+    { "time": "12:00", "output": 4600, "target": 5100 },
+    { "time": "14:00", "output": 5900, "target": 5400 },
+    { "time": "16:00", "output": 6200, "target": 5800 },
+    { "time": "18:00", "output": 5400, "target": 5600 },
+    { "time": "20:00", "output": 4700, "target": 5000 },
+    { "time": "22:00", "output": 3800, "target": 4200 }
+  ],
+  "machineUtilizationChart": [
+    { "machine": "Collection A1", "utilization": 88 },
+    { "machine": "Lab QT-2", "utilization": 74 },
+    { "machine": "Chiller C-3", "utilization": 69 },
+    { "machine": "Pasteurizer P-1", "utilization": 96 },
+    { "machine": "Homogenizer H-2", "utilization": 81 },
+    { "machine": "Tetra Pak TP-4", "utilization": 85 },
+    { "machine": "Dispatch D-2", "utilization": 62 }
+  ],
+  "workflowCompletion": [
+    { "stage": "Collection", "completion": 100 },
+    { "stage": "Testing", "completion": 100 },
+    { "stage": "Cooling", "completion": 78 },
+    { "stage": "Pasteurization", "completion": 54 },
+    { "stage": "Homogenization", "completion": 12 },
+    { "stage": "Packaging", "completion": 0 },
+    { "stage": "Dispatch", "completion": 0 }
+  ],
+  "delayTrend": [
+    { "day": "Mon", "delayMinutes": 18 },
+    { "day": "Tue", "delayMinutes": 24 },
+    { "day": "Wed", "delayMinutes": 15 },
+    { "day": "Thu", "delayMinutes": 31 },
+    { "day": "Fri", "delayMinutes": 22 },
+    { "day": "Sat", "delayMinutes": 40 },
+    { "day": "Sun", "delayMinutes": 27 }
+  ],
+  "dailyProduction": [
+    { "day": "Mon", "liters": 42500 },
+    { "day": "Tue", "liters": 44800 },
+    { "day": "Wed", "liters": 39200 },
+    { "day": "Thu", "liters": 46100 },
+    { "day": "Fri", "liters": 41200 },
+    { "day": "Sat", "liters": 48250 },
+    { "day": "Sun", "liters": 37600 }
+  ],
+  "weeklyProduction": [
+    { "week": "Week 1", "liters": 285400 },
+    { "week": "Week 2", "liters": 301200 },
+    { "week": "Week 3", "liters": 296800 },
+    { "week": "Week 4", "liters": 312500 }
+  ],
+  "shiftPerformance": [
+    { "shift": "Morning (6AM-2PM)", "output": 18400, "efficiency": 89 },
+    { "shift": "Afternoon (2PM-10PM)", "output": 16700, "efficiency": 84 },
+    { "shift": "Night (10PM-6AM)", "output": 11300, "efficiency": 76 }
+  ],
+  "operatorPerformance": [
+    { "operator": "R. Fernandes", "batchesHandled": 14, "efficiency": 92 },
+    { "operator": "S. Kulkarni", "batchesHandled": 12, "efficiency": 88 },
+    { "operator": "P. Iyer", "batchesHandled": 11, "efficiency": 81 },
+    { "operator": "A. Verma", "batchesHandled": 9, "efficiency": 74 },
+    { "operator": "D. Rao", "batchesHandled": 13, "efficiency": 90 },
+    { "operator": "M. Shaikh", "batchesHandled": 15, "efficiency": 93 }
+  ],
+  "machineUtilizationHeatmap": {
+    "machines": ["Collection A1", "Lab QT-2", "Chiller C-3", "Pasteurizer P-1", "Homogenizer H-2", "Tetra Pak TP-4", "Dispatch D-2"],
+    "hours": ["06:00", "09:00", "12:00", "15:00", "18:00", "21:00"],
+    "values": [
+      [82, 88, 90, 85, 79, 60],
+      [70, 74, 78, 76, 71, 55],
+      [65, 69, 74, 88, 82, 58],
+      [90, 96, 98, 94, 89, 70],
+      [60, 65, 81, 84, 79, 50],
+      [70, 78, 85, 88, 86, 62],
+      [40, 50, 62, 68, 74, 45]
+    ]
+  },
+  "productMix": [
+    { "name": "Toned Milk", "value": 38 },
+    { "name": "Full Cream Milk", "value": 26 },
+    { "name": "Curd", "value": 16 },
+    { "name": "Paneer", "value": 12 },
+    { "name": "Ghee", "value": 8 }
+  ]
+}
